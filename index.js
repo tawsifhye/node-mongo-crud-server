@@ -29,6 +29,8 @@ async function run() {
           const users = await cursor.toArray();
           res.send(users)
       })
+
+      
       //specific user
       app.get('/users/:id', async (req, res) => {
           const id = req.params.id;
