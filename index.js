@@ -45,7 +45,25 @@ async function run() {
           const result = await usersCollection.insertOne(newUser);
         //   console.log('got new user', req.body)
         //   console.log('added user', result)
-          res.json(res)
+          res.json(result)
+      })
+
+      //UPDATE or PUT API
+
+      app.put('/users/:id', async(req, res) => {
+        const id = req.params.id;
+        const updatedUser = req.body;
+        const filter = {_id: ObjectId(id)};
+        const options = {upsert: true};
+        const updatedDoc = {
+          $set:{
+            name: updatedUser.name,
+            email: updatedUser.email
+          }
+        };
+        const result = await usersCollection.updateOne(filter, updatedDoc, options);
+        console.log("updated user", id);
+        res.json(result);
       })
 
        // DELETE API
